@@ -32,7 +32,7 @@ export class BusquedasService {
 
   private transformarUsuarios(resultados: any[]): Usuario[] {
     return resultados.map(
-      user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid)  
+      user => new Usuario(user.nombre, user.email, user.role, '', user.img, user.google, user.uid)  
     )
   }
 
@@ -46,6 +46,13 @@ export class BusquedasService {
     return resultados.map(
       medico => new Medico(medico.nombre, medico._id, medico.img)
     )
+  }
+
+  busquedaGlobal(termino: string) {
+
+    const url = `${base_url}/todo/${termino}`
+    return this.http.get(url, this.headers)
+
   }
 
   buscar( 
