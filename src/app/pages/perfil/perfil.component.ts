@@ -4,8 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { Usuario } from 'src/app/auth/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
+import { Usuario } from 'src/app/models/usuario.model';
 
 @Component({
   selector: 'app-perfil',

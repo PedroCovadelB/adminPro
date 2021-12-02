@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import Swal from 'sweetalert2';
-import { delay } from 'rxjs/operators';
 
-import { UsuarioService } from '../../../services/usuario.service';
+import { delay } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-import { Usuario } from 'src/app/auth/models/usuario.model';
+import Swal from 'sweetalert2';
+
+import { Usuario } from 'src/app/models/usuario.model';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { BusquedasService } from 'src/app/services/busquedas.service';
 import { ModalImagenService } from 'src/app/services/model-imagen.service';
 
@@ -21,14 +22,14 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public usuarios: Usuario[] = []
   public usuariosTemp: Usuario[] = []
 
-  public imgSubs!: Subscription;
+  public imgSubs!: Subscription
   public desde: number = 0
   public cargando: boolean = true
 
   constructor( private usuarioService: UsuarioService,
                private busquedasService: BusquedasService,
-               private modalImagenService: ModalImagenService) { }
-               
+               private modalImagenService: ModalImagenService) {}
+
   ngOnDestroy(): void {
     this.imgSubs.unsubscribe()
   }
@@ -37,14 +38,14 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.cargarUsuarios()
 
     this.imgSubs = this.modalImagenService.nuevaImagen
-      .pipe(delay(100))
+      .pipe(delay(1000))
       .subscribe(img => this.cargarUsuarios())
   }
 
   cargarUsuarios() {
-    this.cargando = true;
+    this.cargando = true
     this.usuarioService.cargarUsuarios(this.desde)
-      .subscribe(({total, usuarios}) => {
+      .subscribe( ({total, usuarios}) => {
         this.totalUsuarios = total
         this.usuarios = usuarios
         this.usuariosTemp = usuarios
@@ -53,7 +54,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   cambiarPagina(valor: number) {
-    this.desde += valor
+    this.desde += valor;
 
     if (this.desde < 0) {
       this.desde = 0;
@@ -67,13 +68,14 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   buscar(termino: string) {
 
     if (termino.length === 0) {
-      return this.usuarios = this.usuariosTemp
+      return this.usuarios = this.usuariosTemp;
     }
 
     this.busquedasService.buscar('usuarios', termino)
         .subscribe(resp => {
 
-          this.usuarios = resp
+          this.usuarios = resp as Usuario[]
+
         })
   }
 
@@ -92,18 +94,19 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.value) {
         
-        this.usuarioService.eliminarUsuario( usuario )
+        this.usuarioService.eliminarUsuario(usuario)
           .subscribe(resp => {
             
-            this.cargarUsuarios();
+            this.cargarUsuarios()
             Swal.fire(
               'Usuario borrado',
-              `${usuario.nombre} fue eliminado correctamente`,
+              `${ usuario.nombre } fue eliminado correctamente`,
               'success'
             )
           })
       }
     })
+
   }
 
   cambiarRole(usuario:Usuario) {

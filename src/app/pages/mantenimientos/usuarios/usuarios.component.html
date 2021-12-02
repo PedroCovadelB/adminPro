@@ -6,7 +6,7 @@
                 <input type="text"
                         class="form-control"
                         placeholder="Buscar usuario..."
-                        (keyup)="buscar(txtTermino.value)"
+                        (keyup)="buscar( txtTermino.value )"
                         #txtTermino/>
 
             </div>
@@ -33,7 +33,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Total de usuarios ({{totalUsuarios}})</h4>
+                <h4 class="card-title">Total de usuarios ({{ totalUsuarios }})</h4>
                 <h6 class="card-subtitle">Usuarios registrados en mi aplicación</h6>
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -42,8 +42,8 @@
                                 <th class="w100">Avatar</th>
                                 <th>Correo</th>
                                 <th>Nombre</th>
-                                <th class="w140 text-center">Role</th>
-                                <th class="w100 text-center">Auth</th>
+                                <th class="w140">Role</th>
+                                <th class="w100">Auth</th>
                                 <th class="text-nowrap w100">Acciones</th>
                             </tr>
                         </thead>
@@ -55,19 +55,19 @@
                                             class="avatar cursor"
                                             (click)="abrirModal(usuario)">
                                 </td>
-                                <td>{{usuario.email}}</td>
-                                <td>{{usuario.nombre}}</td>
+                                <td>{{ usuario.email }}</td>
+                                <td>{{ usuario.nombre }}</td>
 
                                 <td>
                                     <select class="form-control"
                                             [(ngModel)]="usuario.role"
-                                            (change)="cambiarRole(usuario)">
+                                            (change)="cambiarRole( usuario )">
                                         <option value="ADMIN_ROLE">Admin</option>
                                         <option value="USER_ROLE">User</option>
                                     </select>
                                 </td>
 
-                                <td class="text-center">
+                                <td>
                                     <span *ngIf="usuario.google" class="label label-danger">Google</span>    
                                     <span *ngIf="!usuario.google" class="label label-info">Email</span>    
                                 </td>

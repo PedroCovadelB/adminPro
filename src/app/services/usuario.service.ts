@@ -11,7 +11,7 @@ import { LoginForm } from '../interfaces/login-form.interface';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
 
-import { Usuario } from '../auth/models/usuario.model';
+import { Usuario } from '../models/usuario.model';
 
 
 const base_url = environment.base_url
